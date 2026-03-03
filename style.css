@@ -1,0 +1,144 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Cascadia Mono", Consolas, monospace;
+  font-size: 18px;
+  background: #000;
+  color: #eee;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+  max-width: 460px;
+  width: 100%;
+  text-align: center;
+}
+
+h1 {
+  font-size: 2.2rem;
+  color: #ccc;
+  margin-bottom: 30px;
+}
+
+/* Общий стиль */
+button, .box, .pulsing-box, .hover-image {
+  min-width: 280px;
+  padding: 14px 24px;
+  font-size: 1.1rem;
+  background: #1e1e1e;
+  color: #ddd;
+  border: 2px solid #555;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* 1. Смена фона */
+.example-1 {
+  background-color: #E1E1DF;
+  color: #000;
+  transition: background-color 0.3s ease;
+}
+.example-1:hover {
+  background-color: #1F1F1E;
+}
+
+/* 2. Смена цвета (фон + текст) */
+.example-2 {
+  background-color: #E1E1DF;
+  color: #000;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+.example-2:hover {
+  background-color: #1F1F1E;
+  color: #FFFFFF;
+}
+
+/* 3. Scale */
+.example-3 {
+  transition: transform 0.3s ease-in-out;
+}
+.example-3:hover {
+  transform: scale(1.2);
+}
+
+/* 4. Rotate */
+.example-4 {
+  transition: transform 0.4s ease-out;
+}
+.example-4:hover {
+  transform: rotate(45deg);
+}
+
+/* 5. Translate */
+.example-5 {
+  transition: transform 0.3s ease;
+}
+.example-5:hover {
+  transform: translateX(20px);
+}
+
+/* 6. Пульсация */
+.pulsing-box {
+  width: 140px;
+  height: 140px;
+  background-color: #444;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: pulse 2s infinite alternate ease-in-out;
+}
+
+@keyframes pulse {
+  0%   { transform: scale(1);   opacity: 1; }
+  50%  { transform: scale(1.1); opacity: 0.7; }
+  100% { transform: scale(1);   opacity: 1; }
+}
+
+/* 7. Кнопка движения */
+.example-7 {
+  transition: transform 0.1s;
+}
+
+/* 8. Ripple + изображение */
+.example-8 {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.35);
+  transform: scale(0);
+  pointer-events: none;
+  animation: ripple 0.6s linear;
+}
+
+@keyframes ripple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+.hover-image {
+  width: 100%;
+  max-width: 360px;
+  height: auto;
+  border-radius: 8px;
+  border: 2px solid #555;
+  cursor: pointer;
+}

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Анимации практика</title>
+  <link rel="stylesheet" href="style.css" >
+</head>
+<body>
+
+  <div class="container">
+
+    <h1>Тест анимаций</h1>
+
+    <!1. Смена фона при наведении >
+    <button class="example-1">1. Наведение - смена фона</button>
+
+    <!2. Смена цвета фона + текста >
+    <button class="example-2">2. Наведение - цвет фона и текста</button>
+
+    <!3. Scale >
+    <div class="example-3 box">3. Наведение - увеличение</div>
+
+    <!4. Rotate >
+    <div class="example-4 box">4. Наведение - поворот 45°</div>
+
+    <!5. Translate X >
+    <div class="example-5 box">5. Наведение - translateX 20px</div>
+
+    <!6. Пульсация >
+    <div class="example-6 pulsing-box">6. Пульсация</div>
+
+    <!7. Движение при клике >
+    <button id="moveBtn" class="example-7">7. Клик - движение вправо</button>
+
+    <!8. Ripple при клике + hover на картинке >
+    <button id="rippleBtn" class="example-8">8. Клик - ripple эффект</button>
+
+    <img id="hoverImg" 
+         src="https://picsum.photos/400/260?grayscale" 
+         alt="чёрно-белое фото" 
+         class="hover-image">
+
+  </div>
+
+  <script>
+    // 7. Движение при клике
+    const moveBtn = document.getElementById('moveBtn');
+    let start = null;
+
+    function animate(timestamp) {
+      if (!start) start = timestamp;
+      const progress = timestamp - start;
+      const distance = Math.min(progress / 2000 * 200, 200);
+      moveBtn.style.transform = `translateX(${distance}px)`;
+      if (distance < 200) {
+        requestAnimationFrame(animate);
+      }
+    }
+
+    moveBtn.addEventListener('click', () => {
+      start = null;
+      moveBtn.style.transition = 'none';
+      requestAnimationFrame(animate);
+    });
+
+    // Ripple при клике
+    const rippleBtn = document.getElementById('rippleBtn');
+
+    rippleBtn.addEventListener('click', function(e) {
+      const ripple = document.createElement('span');
+      ripple.classList.add('ripple');
+      this.appendChild(ripple);
+
+      const diameter = Math.max(this.clientWidth, this.clientHeight);
+      const radius = diameter / 2;
+
+      ripple.style.width = ripple.style.height = diameter + 'px';
+      ripple.style.left = (e.clientX - this.offsetLeft - radius) + 'px';
+      ripple.style.top  = (e.clientY - this.offsetTop  - radius) + 'px';
+
+      ripple.addEventListener('animationend', () => {
+        ripple.remove();
+      });
+    });
+
+    // Hover на изображении
+    const hoverImg = document.getElementById('hoverImg');
+
+    hoverImg.addEventListener('mouseover', function() {
+      this.style.transform = 'scale(1.05)';
+      this.style.boxShadow = '0 8px 16px rgba(0,0,0,0.4)';
+    });
+
+    hoverImg.addEventListener('mouseout', function() {
+      this.style.transform = 'scale(1)';
+      this.style.boxShadow = 'none';
+    });
+  </script>
+
+</body>
+</html>
